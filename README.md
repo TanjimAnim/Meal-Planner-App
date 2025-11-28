@@ -11,12 +11,17 @@
 
 ### **Architecture Overview**
 
-1. src/
+1.
+
+```
+src/
    ├── components/ # React components
    ├── hooks/ # Custom hooks (useRecipes, useRecipeDetails, useMealPlan)
    ├── store/ # redux store
    ├── types/ # TypeScript interfaces
    └── App.tsx
+```
+
 2. Used redux for modularity and simplification of code.
 
 3. **3 Custom Hooks:**
@@ -29,7 +34,7 @@
 1. Chose Atomic structure for components because it is the most practiced one
 2. Used Redux for state management.
 3. Used React-Icons for icons library
-4. If I had more time, maybe add dynamic pages instead of modals for details
+4. If I had more time, maybe add dynamic pages instead of modals for details.
 
 | Task              | Time Spent  |
 | ----------------- | ----------- |
