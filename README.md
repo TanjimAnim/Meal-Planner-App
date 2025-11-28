@@ -1,16 +1,32 @@
-# React + Vite
+### **Setup Instructions**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+```markdown
+## Setup & Run
 
-Currently, two official plugins are available:
+1. Prerequisites (Node version >= 18)
+2. git clone https://github.com/your-username/react-meal-planner.git
+3. cd my-react-app
+4. npm install
+```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### **Architecture Overview**
 
-## React Compiler
+1. src/
+   ├── components/ # React components
+   ├── hooks/ # Custom hooks (useRecipes, useRecipeDetails, useMealPlan)
+   ├── store/ # redux store
+   ├── types/ # TypeScript interfaces
+   └── App.tsx
+2. Used redux for modularity and simplification of code.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+3. **3 Custom Hooks:**
+   1. `useRecipes(searchQuery, category)` - Search/filter recipes
+   2. `useRecipeDetails(id)` - Fetch recipe details
+   3. `useMealPlan()` - Manage meal planning state
 
-## Expanding the ESLint configuration
+### **Technical Decisions**
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Chose Atomic structure for components because it is the most practiced one
+2. Used Redux for state management.
+3. Used React-Icons for icons library
+4. If I had more time, maybe add dynamic pages instead of modals for details
