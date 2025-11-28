@@ -1,18 +1,12 @@
-// src/components/organisms/WeeklyMealPlan.tsx
 import type { RootState } from "../../store";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { clearPlan, removeRecipe } from "../../store/mealPlanSlice";
 
-const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
-interface WeeklyMealPlanType {
-    onSelectDay: (day: string) => void;
-}
-
-export const WeeklyMealPlan = ({ onSelectDay }: WeeklyMealPlanType) => {
+export const WeeklyMealPlan = () => {
     const mealPlan = useAppSelector((state: RootState) => state.mealPlan.plan);
     const dispatch = useAppDispatch();
-
     return (
         <div className="flex flex-col gap-4">
             <h2 className="text-xl font-bold">Weekly Meal Plan</h2>
@@ -23,7 +17,12 @@ export const WeeklyMealPlan = ({ onSelectDay }: WeeklyMealPlanType) => {
                         <div key={day} className="border rounded p-2">
                             <h3 className="font-semibold">{day}</h3>
                             {recipe ? (
-                                <div>
+                                <div className="mx-auto p-2">
+                                    <img
+                                        src={recipe.strMealThumb}
+                                        alt={"recipe-image"}
+                                        className="w-20 h-20 mx-auto rounded-sm"
+                                    />
                                     <p>{recipe.strMeal}</p>
                                     <button
                                         onClick={() => dispatch(removeRecipe(day))}
@@ -33,12 +32,7 @@ export const WeeklyMealPlan = ({ onSelectDay }: WeeklyMealPlanType) => {
                                     </button>
                                 </div>
                             ) : (
-                                <button
-                                    onClick={() => onSelectDay(day)}
-                                    className="text-blue-600 text-sm"
-                                >
-                                    Add Recipe
-                                </button>
+                                <p>No Recipe Added</p>
                             )}
                         </div>
                     );

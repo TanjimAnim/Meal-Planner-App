@@ -1,5 +1,9 @@
-// src/components/organisms/RecipeDetails.tsx
+import { useAppDispatch } from "@/store/hooks";
+import { useState } from "react";
 import { useRecipeDetails } from "../../hooks/useRecipeDetails";
+import ErrorComponent from "../atoms/ErrorComponent/ErrorComponent";
+import { Select, SelectOption } from "../atoms/Select/Select";
+import { addRecipe } from "@/store/mealPlanSlice";
 
 interface Props {
     recipeId: string | null;
@@ -8,14 +12,52 @@ interface Props {
 
 export const RecipeDetails = ({ recipeId, onClose }: Props) => {
     const { recipe, loading, error } = useRecipeDetails(recipeId);
+    const dispatch = useAppDispatch()
+    const [day, setDay] = useState<string>("");
 
-    if (!recipeId) return null;
+    if (!recipeId) return <ErrorComponent error="No Recipe Details Found" />;
+
+    const daysOfWeek: SelectOption[] = [
+        { value: "Monday", label: "Monday" },
+        { value: "Tuesday", label: "Tuesday" },
+        { value: "Wednesday", label: "Wednesday" },
+        { value: "Thursday", label: "Thursday" },
+        { value: "Friday", label: "Friday" },
+        { value: "Saturday", label: "Saturday" },
+        { value: "Sunday", label: "Sunday" },
+    ];
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
             <div className="bg-white rounded-md p-6 max-w-lg w-full overflow-y-auto max-h-[80vh]">
                 <button onClick={onClose} className="mb-4 text-red-600">
                     Close
+                </button>
+
+                <label className="block mb-2 text-black font-semibold">
+                    Select Day:
+                </label>
+                <Select
+                    id="day-select"
+                    name="day"
+                    value={day}
+                    onChange={(e) => setDay(e.target.value)}
+                    options={daysOfWeek}
+                    placeholder="Choose a day"
+                    className="border rounded p-2 mb-4 w-full text-black"
+                    required
+                />
+                <button
+                    disabled={!day || !recipe}
+                    onClick={() => {
+                        if (recipe && day) {
+                            dispatch(addRecipe({ day, recipe }));
+                            onClose();
+                        }
+                    }}
+                    className="bg-blue-600 text-white px-4 py-2 rounded disabled:opacity-50"
+                >
+                    Add to {day || "Day"}
                 </button>
 
                 {loading && <p className="text-black">Loading recipe...</p>}
