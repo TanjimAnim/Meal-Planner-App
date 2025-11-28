@@ -1,10 +1,5 @@
+import { ShoppingItem } from "@/components/organisms/WeeklyMealPlanModal";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface ShoppingItem {
-    name: string;
-    measure: string;
-    purchased: boolean;
-}
 
 interface ShoppingListState {
     items: ShoppingItem[];
